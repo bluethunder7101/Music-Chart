@@ -57,9 +57,8 @@
             <table class="table table-hover"> 
                 <thead> 
                     <tr class="table-success"> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist </th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Album</th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song</th>  
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Genre</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Number of Albums With Long Songs</th> 
                     </tr>
                 </thead> 
                 <?php 
@@ -68,8 +67,18 @@
 					{	 
 						die( mysqli_connect_error() );   
 					}	 
-					$sql = "SELECT ARTISTS.ArtistName, ALBUMS.AlbumName, SONGS.SongName 
-					FROM ARTISTS JOIN ALBUMS ON ALBUMS.ArtistID = ARTISTS.ArtistID JOIN SONGS ON ALBUMS.AlbumID = SONGS.AlbumID"; 
+					$sql = "SELECT ALBUMS.Genre, COUNT(ALBUMS.AlbumName) AS 'Number of albums with long songs' 
+							FROM ALBUMS
+							WHERE ALBUMS.ArtistID = ANY (
+								SELECT
+									SONGS.ArtistID
+								FROM
+									SONGS
+								WHERE
+									SONGS.Seconds > 200
+							)
+							GROUP BY
+								ALBUMS.Genre"; 
  
                   if ($result = mysqli_query($connection, $sql))  
                   { 
@@ -77,9 +86,8 @@
                       { 
               ?> 
                 <tr> 
-                    <td><?php echo $row['ArtistName'] ?></td> 
-                    <td><?php echo $row['AlbumName'] ?></td> 
-                    <td><?php echo $row['SongName'] ?></td> 
+                    <td><?php echo $row['Genre'] ?></td> 
+                    <td><?php echo $row['Number of albums with long songs'] ?></td> 
                 </tr> 
                 <?php 
                       } 

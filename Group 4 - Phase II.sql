@@ -836,8 +836,8 @@ VALUES
 --  Expected: A table of Genres with songs longer then 200 seconds and 
 --  how many songs that meet this criteria.
 -- SELECT
---   COUNT(ALBUMS.AlbumName) AS "Number of albums with long songs",
---   ALBUMS.Genre
+-- 	 ALBUMS.Genre,
+--   COUNT(ALBUMS.AlbumName) AS "Number of albums with long songs"
 -- FROM
 --   ALBUMS
 -- WHERE
