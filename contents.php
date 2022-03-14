@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Assignment 4 Demo</title> 
         <!-- add a reference to the external stylesheet --> 
-        <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css"> 
+        <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     </head> 
  
 <body> 
