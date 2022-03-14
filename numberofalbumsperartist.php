@@ -1,3 +1,4 @@
+<?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
 <!-- Assignment 4 Template --> 
 <!DOCTYPE html> 
@@ -29,8 +30,7 @@
             <li class="nav-item">
               <a class="nav-link" href="contents.php">Contents</a>
             </li>
-			<li class="nav-item">
-              <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
+			  <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="usersfourplussongs.php">Users With 4+ Rated Songs</a>
@@ -70,18 +70,52 @@
               </div>
             </li> -->
           </ul>
-			</div>
-		</div>
+    			</div>
+    		</div>
     	</nav>
     <!-- END -- Add HTML code for the top menu section (navigation bar) --> 
 	<div class="jumbotron"> 
-        <h1 class="display-3">Welcome to Music Chart!</h1> 
-        <p class="lead">You can use this website to view various artists, songs, and albums and keep track of your favorites! To get started look to the top of the page and use the navigation bar.<p> 
-        <hr class="my-4"> 
-        <p>It uses MySQL DBMS and PHP to retrieve data from the database</p> 
-        <p class="lead"> 
-			<a class="btn btn-primary btn-lg" href="#" role="button">Thank you for visiting!</a> 
-        </p> 
+		<form action="contents.php">      
+			<p>&nbsp;</p> 
+            <table class="table table-hover"> 
+                <thead> 
+                    <tr class="table-success"> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist Name</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Number of Albums Released</th>   
+                    </tr>
+                </thead> 
+                <?php 
+					$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);				
+					if ( mysqli_connect_errno() )  
+					{	 
+						die( mysqli_connect_error() );   
+					}	 
+					$sql = " SELECT
+							   a.ArtistName 'Artist Name',
+							   COUNT(al.AlbumID) 'Albums Released'
+							 FROM
+							   Artists a
+							   JOIN Albums al ON a.ArtistID = al.ArtistID
+							 GROUP BY
+							   a.ArtistName"; 
+ 
+                  if ($result = mysqli_query($connection, $sql))  
+                  { 
+                      while($row = mysqli_fetch_assoc($result)) 
+                      { 
+              ?> 
+                <tr> 
+                    <td><?php echo $row['Artist Name'] ?></td> 
+                    <td><?php echo $row['Albums Released'] ?></td>  
+                </tr> 
+                <?php 
+                      } 
+                      // release the memory used by the result set 
+                      mysqli_free_result($result);  
+                  }    
+              ?> 
+            </table>     
+        </form> 
 </div> 
 </body> 
 </html> 

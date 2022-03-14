@@ -33,6 +33,30 @@
 			<li class="nav-item">
               <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
             </li>
+			<li class="nav-item">
+              <a class="nav-link" href="usersfourplussongs.php">Users With 4+ Rated Songs</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="favoritedartistsbyuser.php">Favorited Artists By User</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="requestedsoundbites.php">Users Who Have Requested Soundbytes</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="numberofalbumsperartist.php">Number of Albums Per Artists</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="userfavoritealbums.php">Users Favorited Albums</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="usersfavoritepodcast.php">Users Favorited Podcasts</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="usersfavoritesongs.php">Users Favorited Songs</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="usersfavoritedartists.php">Users Favorited Artists</a>
+            </li>
             <li class="nav-item">
               <a class="btn btn-outline-light" href="#">Login</a>
             </li>
