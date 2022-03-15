@@ -1,6 +1,6 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Project Phase 3 Script to display basic contents of the database --> 
+<!-- Project Phase 3 Script to display favorite artists by user --> 
 <!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -31,8 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" href="contents.php">Contents</a>
             </li>
-			<li class="nav-item">
-              <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
+			  <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="usersfourplussongs.php">Users With 4+ Rated Songs</a>
@@ -67,9 +66,14 @@
                 <thead> 
 					<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist </th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Album</th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song</th>  
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">UserID </th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">User Name</th> 
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Name</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Email</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Country</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist ID</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist Name</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist Rating</th>
                     </tr>
                 </thead> 
                 <?php 
@@ -77,10 +81,21 @@
 					if ( mysqli_connect_errno() )  
 					{	 
 						die( mysqli_connect_error() );   
-					}	
-					//SQL to generate the artist, album, and songs that are stored.
-					$sql = "SELECT ARTISTS.ArtistName, ALBUMS.AlbumName, SONGS.SongName 
-					FROM ARTISTS JOIN ALBUMS ON ALBUMS.ArtistID = ARTISTS.ArtistID JOIN SONGS ON ALBUMS.AlbumID = SONGS.AlbumID"; 
+					}	 
+					//SQL to generate userid, username, irlname, email, country, artistid, artistname, artistsrating to show what users have favorited which artists
+					$sql = "SELECT
+								UserID,
+								UserName,
+								IRLName,
+								Email,
+								Country,
+								ArtistID,
+								ArtistName,
+								ArtistRating
+							FROM
+								PROFILES 
+								LEFT OUTER JOIN FAVORITEARTISTS ON PROFILES.UserID = FAVORITEARTISTS.FAUserID
+								LEFT OUTER JOIN ARTISTS ON ARTISTS.ArtistID = FAVORITEARTISTS.FAArtistID"; 
  
                   if ($result = mysqli_query($connection, $sql))  
                   { 
@@ -88,9 +103,14 @@
                       { 
               ?> 
                 <tr> 
-                    <td><?php echo $row['ArtistName'] ?></td> 
-                    <td><?php echo $row['AlbumName'] ?></td> 
-                    <td><?php echo $row['SongName'] ?></td> 
+                    <td><?php echo $row['UserID'] ?></td> 
+                    <td><?php echo $row['UserName'] ?></td> 
+                    <td><?php echo $row['IRLName'] ?></td>
+					<td><?php echo $row['Email'] ?></td>
+					<td><?php echo $row['Country'] ?></td>
+					<td><?php echo $row['ArtistID'] ?></td>
+					<td><?php echo $row['ArtistName'] ?></td>
+					<td><?php echo $row['ArtistRating'] ?></td>
                 </tr> 
                 <?php 
                       } 

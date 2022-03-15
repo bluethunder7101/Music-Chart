@@ -1,6 +1,6 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Project Phase 3 Script to display basic contents of the database --> 
+<!-- Project Phase 3 Script to display the various artists that users have favorited --> 
 <!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -65,11 +65,11 @@
 			<p>&nbsp;</p> 
             <table class="table table-hover"> 
                 <thead> 
-					<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist </th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Album</th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song</th>  
+						<!-- Generates table headers and formats the background-color and text color -->
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">User Name </th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist Name</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">ArtistID</th>  
                     </tr>
                 </thead> 
                 <?php 
@@ -77,10 +77,16 @@
 					if ( mysqli_connect_errno() )  
 					{	 
 						die( mysqli_connect_error() );   
-					}	
-					//SQL to generate the artist, album, and songs that are stored.
-					$sql = "SELECT ARTISTS.ArtistName, ALBUMS.AlbumName, SONGS.SongName 
-					FROM ARTISTS JOIN ALBUMS ON ALBUMS.ArtistID = ARTISTS.ArtistID JOIN SONGS ON ALBUMS.AlbumID = SONGS.AlbumID"; 
+					}	 
+					//SQL to generate username, artistname, and artistid to see what users favorite what artists.
+					$sql = " SELECT
+							   Username,
+							   ArtistName,
+							   ArtistID
+							 FROM
+							   Profiles
+							   INNER JOIN FavoriteArtists ON Profiles.UserID = FavoriteArtists.FAArtistID
+							   INNER JOIN Artists ON FavoriteArtists.FAArtistID = Artists.ArtistID"; 
  
                   if ($result = mysqli_query($connection, $sql))  
                   { 
@@ -88,9 +94,9 @@
                       { 
               ?> 
                 <tr> 
+                    <td><?php echo $row['Username'] ?></td> 
                     <td><?php echo $row['ArtistName'] ?></td> 
-                    <td><?php echo $row['AlbumName'] ?></td> 
-                    <td><?php echo $row['SongName'] ?></td> 
+                    <td><?php echo $row['ArtistID'] ?></td> 
                 </tr> 
                 <?php 
                       } 

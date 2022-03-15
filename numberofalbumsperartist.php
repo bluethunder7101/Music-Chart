@@ -1,6 +1,6 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Project Phase 3 Script to display basic contents of the database --> 
+<!-- Project Phase 3 Script to display the number of albums that an artist has made --> 
 <!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -31,8 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" href="contents.php">Contents</a>
             </li>
-			<li class="nav-item">
-              <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
+			  <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="usersfourplussongs.php">Users With 4+ Rated Songs</a>
@@ -67,9 +66,8 @@
                 <thead> 
 					<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist </th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Album</th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song</th>  
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist Name</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Number of Albums Released</th>   
                     </tr>
                 </thead> 
                 <?php 
@@ -78,9 +76,15 @@
 					{	 
 						die( mysqli_connect_error() );   
 					}	
-					//SQL to generate the artist, album, and songs that are stored.
-					$sql = "SELECT ARTISTS.ArtistName, ALBUMS.AlbumName, SONGS.SongName 
-					FROM ARTISTS JOIN ALBUMS ON ALBUMS.ArtistID = ARTISTS.ArtistID JOIN SONGS ON ALBUMS.AlbumID = SONGS.AlbumID"; 
+					//SQL to generate the artistname and the number of albums that are stored.
+					$sql = " SELECT
+							   a.ArtistName 'Artist Name',
+							   COUNT(al.AlbumID) 'Albums Released'
+							 FROM
+							   Artists a
+							   JOIN Albums al ON a.ArtistID = al.ArtistID
+							 GROUP BY
+							   a.ArtistName"; 
  
                   if ($result = mysqli_query($connection, $sql))  
                   { 
@@ -88,9 +92,8 @@
                       { 
               ?> 
                 <tr> 
-                    <td><?php echo $row['ArtistName'] ?></td> 
-                    <td><?php echo $row['AlbumName'] ?></td> 
-                    <td><?php echo $row['SongName'] ?></td> 
+                    <td><?php echo $row['Artist Name'] ?></td> 
+                    <td><?php echo $row['Albums Released'] ?></td>  
                 </tr> 
                 <?php 
                       } 

@@ -1,6 +1,6 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Project Phase 3 Script to display basic contents of the database --> 
+<!-- Project Phase 3 Script to display whihc users have rated a song with a rating greater than 4.00 --> 
 <!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -65,32 +65,49 @@
 			<p>&nbsp;</p> 
             <table class="table table-hover"> 
                 <thead> 
-					<!-- Generates table headers and formats the background-color and text color -->
+				<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist </th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Album</th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song</th>  
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Username</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song Name</th> 
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song Rating</th> 
                     </tr>
                 </thead> 
                 <?php 
+					//Creating connection
 					$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);				
 					if ( mysqli_connect_errno() )  
 					{	 
 						die( mysqli_connect_error() );   
 					}	
-					//SQL to generate the artist, album, and songs that are stored.
-					$sql = "SELECT ARTISTS.ArtistName, ALBUMS.AlbumName, SONGS.SongName 
-					FROM ARTISTS JOIN ALBUMS ON ALBUMS.ArtistID = ARTISTS.ArtistID JOIN SONGS ON ALBUMS.AlbumID = SONGS.AlbumID"; 
- 
+					//SQL query to collect the users who have rated a song with 4.00 or higher and fromt he USA
+					$sql = "SELECT
+								USERSFROMUSA.UserName,
+								SONGS.SongName,
+								SONGS.SongRating
+							FROM
+								SONGS,
+								FAVORITESONGS,(
+									SELECT
+										PROFILES.UserName,
+										PROFILES.UserID
+									FROM
+										PROFILES
+									WHERE
+										PROFILES.Country = 'USA'
+								) USERSFROMUSA
+							WHERE
+								FAVORITESONGS.UserID = USERSFROMUSA.UserID
+								AND FAVORITESONGS.FSongID = SONGS.SongID
+								AND SONGS.SongRating > 4"; 
                   if ($result = mysqli_query($connection, $sql))  
                   { 
                       while($row = mysqli_fetch_assoc($result)) 
                       { 
               ?> 
                 <tr> 
-                    <td><?php echo $row['ArtistName'] ?></td> 
-                    <td><?php echo $row['AlbumName'] ?></td> 
-                    <td><?php echo $row['SongName'] ?></td> 
+                    <td><?php echo $row['UserName'] ?></td> 
+                    <td><?php echo $row['SongName'] ?></td>
+					<td><?php echo $row['SongRating'] ?></td>					
                 </tr> 
                 <?php 
                       } 

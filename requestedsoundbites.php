@@ -1,6 +1,6 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Project Phase 3 Script to display basic contents of the database --> 
+<!-- Project Phase 3 Script to display which users have requested what sound bytes --> 
 <!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -31,8 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" href="contents.php">Contents</a>
             </li>
-			<li class="nav-item">
-              <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
+			  <a class="nav-link" href="longersongs.php">Genres With Longer Songs</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="usersfourplussongs.php">Users With 4+ Rated Songs</a>
@@ -67,9 +66,13 @@
                 <thead> 
 					<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Artist </th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Album</th> 
-                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song</th>  
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">User Name</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Name</th> 
+                        <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Email</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Country</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song Name</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Start Time</th>
+						<th scope="col" style="background-color:#1a1a1a; color:#8d8b86">End Time</th>
                     </tr>
                 </thead> 
                 <?php 
@@ -78,9 +81,46 @@
 					{	 
 						die( mysqli_connect_error() );   
 					}	
-					//SQL to generate the artist, album, and songs that are stored.
-					$sql = "SELECT ARTISTS.ArtistName, ALBUMS.AlbumName, SONGS.SongName 
-					FROM ARTISTS JOIN ALBUMS ON ALBUMS.ArtistID = ARTISTS.ArtistID JOIN SONGS ON ALBUMS.AlbumID = SONGS.AlbumID"; 
+					//SQL to generate username, irlname, email, country, songname, starttime, and endtime to view all the users that have requested sound bytes.
+					$sql = " SELECT
+								UserName,
+							    IRLName,
+							    Email,
+							    Country,
+							    SongName,
+							    StartTime,
+							    EndTIme
+							  FROM
+							    (
+								  SELECT
+								    *
+								  FROM
+								    PROFILES
+								  WHERE
+								   IRLName IS NOT NULL
+							    ) USERS_WITH_IRL_NAMES
+							    RIGHT JOIN REQUESTEDSOUNDBITES ON USERS_WITH_IRL_NAMES.UserID = REQUESTEDSOUNDBITES.UserID
+							    RIGHT JOIN SONGS ON SONGS.SongID = REQUESTEDSOUNDBITES.SongID
+							 INTERSECT
+							 SELECT
+							   UserName,
+							   IRLName,
+							   Email,
+							   Country,
+							   SongName,
+							   StartTime,
+							   EndTIme
+							 FROM
+							   (
+								 SELECT
+								   *
+								 FROM
+								   PROFILES
+								 WHERE
+								   COUNTRY IS NOT NULL
+							   ) USERS_WITH_COUNTRY
+							   LEFT JOIN REQUESTEDSOUNDBITES ON USERS_WITH_COUNTRY.UserID = REQUESTEDSOUNDBITES.UserID
+							   LEFT JOIN SONGS ON SONGS.SongID = REQUESTEDSOUNDBITES.SongID"; 
  
                   if ($result = mysqli_query($connection, $sql))  
                   { 
@@ -88,9 +128,13 @@
                       { 
               ?> 
                 <tr> 
-                    <td><?php echo $row['ArtistName'] ?></td> 
-                    <td><?php echo $row['AlbumName'] ?></td> 
-                    <td><?php echo $row['SongName'] ?></td> 
+                    <td><?php echo $row['UserName'] ?></td> 
+                    <td><?php echo $row['IRLName'] ?></td> 
+                    <td><?php echo $row['Email'] ?></td>
+					<td><?php echo $row['Country'] ?></td>
+					<td><?php echo $row['SongName'] ?></td>
+					<td><?php echo $row['StartTime'] ?></td>
+					<td><?php echo $row['EndTIme'] ?></td>
                 </tr> 
                 <?php 
                       } 
