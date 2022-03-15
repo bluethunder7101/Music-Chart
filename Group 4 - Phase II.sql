@@ -81,6 +81,7 @@ CREATE TABLE Profiles (
   Country VARCHAR(30) DEFAULT 'Choose not to list',
   UserName VARCHAR(20) NOT NULL,
   IRLName VARCHAR(30) DEFAULT 'Choose not to list',
+  Password VARCHAR(30) NOT NULL,
   PRIMARY KEY (UserID)
 );
 
@@ -379,17 +380,17 @@ VALUES
 INSERT INTO
   Profiles
 VALUES
-  (1, 'cathy@gmail.com', 'USA', 'thecath', 'Cathy');
+  (1, 'cathy@gmail.com', 'USA', 'thecath', 'Cathy', 123);
 
 INSERT INTO
   Profiles
 VALUES
-  (2, NULL, NULL, 'BlueBolt', NULL);
+  (2, NULL, NULL, 'BlueBolt', NULL, 'bolt');
 
 INSERT INTO
   Profiles
 VALUES
-  (3, 'goUSA@gmail.com', 'USA', 'TeamUSA', NULL);
+  (3, 'goUSA@gmail.com', 'USA', 'TeamUSA', NULL, 'America');
 
 INSERT INTO
   Profiles
@@ -399,7 +400,8 @@ VALUES
     'purplepanther@gmail.com',
     NULL,
     'purplepanther',
-    'Eric'
+    'Eric',
+    'ericlovespurplepanthers'
   );
 
 INSERT INTO
@@ -410,7 +412,8 @@ VALUES
     'jamesmorimoto@gmail.com',
     'USA',
     'mynamejames',
-    'James'
+    'James',
+    'james123'
   );
 
 INSERT INTO
@@ -421,13 +424,14 @@ VALUES
     'therealaleshia@gmail.com',
     'USA',
     'Ale$hia',
-    'Aleshia'
+    'Aleshia',
+    '@le$shi@'
   );
 
 INSERT INTO
   Profiles
 VALUES
-  (7, 'theGUY@gmail.com', NULL, 'someguy', NULL);
+  (7, 'theGUY@gmail.com', NULL, 'someguy', NULL,'aguy');
 
 INSERT INTO
   Profiles
@@ -437,7 +441,8 @@ VALUES
     'edward@gmail.com',
     'USA',
     'GOEDWARD',
-    'Edward'
+    'Edward',
+    'twilight'
   );
 
 INSERT INTO
@@ -448,7 +453,8 @@ VALUES
     'stewie2k@gmail.com',
     'USA',
     'Stewie2k',
-    'Stewie'
+    'Stewie',
+    '2kstewie'
   );
 
 INSERT INTO
@@ -459,7 +465,9 @@ VALUES
     'Naf-fly@gmail.com',
     'USA',
     'NAF-FLY',
-    'Keith'
+    'Keith',
+    '1234'
+
   );
 
 --  Sample Data for the Podcasts table.
