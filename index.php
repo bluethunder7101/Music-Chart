@@ -52,7 +52,7 @@
               <a class="nav-link" href="usersfavoritedartists.php">Users Favorited Artists</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-outline-light" href="#">Login</a>
+              <a class="btn btn-outline-light" href="login.php">Login</a>
             </li>
           </ul>
 			</div>
