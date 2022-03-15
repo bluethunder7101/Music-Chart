@@ -40,9 +40,6 @@
               <a class="nav-link" href="requestedsoundbites.php">Users Who Have Requested Soundbytes</a>
             </li>
 			<li class="nav-item">
-              <a class="nav-link" href="numberofalbumsperartist.php">Number of Albums Per Artists</a>
-            </li>
-			<li class="nav-item">
               <a class="nav-link" href="userfavoritealbums.php">Users Favorited Albums</a>
             </li>
 			<li class="nav-item">
