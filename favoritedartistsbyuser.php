@@ -1,6 +1,7 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Assignment 4 Template --> 
+<!-- Project Phase 3 Script to display favorite artists by user --> 
+<!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
     <head> 
@@ -19,7 +20,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
+		<!-- Creates Navigation bar -->
         <div class="collapse navbar-collapse" id="navbarColor01">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
@@ -59,16 +60,6 @@
             <li class="nav-item">
               <a class="btn btn-outline-light" href="#">Login</a>
             </li>
-          <!--  <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </li> -->
           </ul>
     			</div>
     		</div>
@@ -79,6 +70,7 @@
 			<p>&nbsp;</p> 
             <table class="table table-hover"> 
                 <thead> 
+					<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
                         <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">UserID </th> 
                         <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">User Name</th> 
@@ -96,6 +88,7 @@
 					{	 
 						die( mysqli_connect_error() );   
 					}	 
+					//SQL to generate userid, username, irlname, email, country, artistid, artistname, artistsrating to show what users have favorited which artists
 					$sql = "SELECT
 								UserID,
 								UserName,

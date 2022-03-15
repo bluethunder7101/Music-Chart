@@ -1,6 +1,7 @@
 <?php require_once('config.php'); ?>
 <!-- TCSS 445 : Autumn 2020 --> 
-<!-- Assignment 4 Template --> 
+<!-- Project Phase 3 Script to display whihc users have rated a song with a rating greater than 4.00 --> 
+<!-- James Morimoto, Brandon Rosario, Lynda Tanielu, Eyob Fenta-->
 <!DOCTYPE html> 
 <html lang="en"> 
     <head> 
@@ -19,7 +20,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
+		<!-- Creates Navigation bar -->
         <div class="collapse navbar-collapse" id="navbarColor01">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
@@ -60,16 +61,6 @@
             <li class="nav-item">
               <a class="btn btn-outline-light" href="#">Login</a>
             </li>
-          <!--  <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </li> -->
           </ul>
     			</div>
     		</div>
@@ -79,7 +70,8 @@
 		<form action="contents.php">      
 			<p>&nbsp;</p> 
             <table class="table table-hover"> 
-                                <thead> 
+                <thead> 
+				<!-- Generates table headers and formats the background-color and text color -->
                     <tr class="table-success"> 
                         <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Username</th> 
                         <th scope="col" style="background-color:#1a1a1a; color:#8d8b86">Song Name</th> 
@@ -87,11 +79,13 @@
                     </tr>
                 </thead> 
                 <?php 
+					//Creating connection
 					$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);				
 					if ( mysqli_connect_errno() )  
 					{	 
 						die( mysqli_connect_error() );   
-					}	 
+					}	
+					//SQL query to collect the users who have rated a song with 4.00 or higher and fromt he USA
 					$sql = "SELECT
 								USERSFROMUSA.UserName,
 								SONGS.SongName,

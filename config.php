@@ -1,3 +1,4 @@
+<!-- Basic config file-->
 <?php  
    define('DBHOST', 'localhost'); 
    define('DBNAME', 'musicstore'); 
