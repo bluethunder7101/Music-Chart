@@ -38,9 +38,6 @@
               <a class="nav-link" href="usersfourplussongs.php">Users With 4+ Rated Songs</a>
             </li>
 			<li class="nav-item">
-              <a class="nav-link" href="favoritedartistsbyuser.php">Favorited Artists By User</a>
-            </li>
-			<li class="nav-item">
               <a class="nav-link" href="requestedsoundbites.php">Users Who Have Requested Soundbytes</a>
             </li>
 			<li class="nav-item">
