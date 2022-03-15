@@ -87,8 +87,7 @@
 ?>
 <hr>
 <font class="d-flex justify-content-center align-items-center container"; color="red"><b>
-        <h3>Sorry Invalid Username and Password<br>
-            Please Enter Correct Credentials</br></h3>
+        <h3>Sorry Invalid Username and Password</h3>
     </b>
 </font>
 <hr>
